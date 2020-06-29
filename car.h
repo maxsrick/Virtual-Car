@@ -1,3 +1,6 @@
+#ifndef CAR_H
+#define CAR_H
+
 class car
 {
   public:
@@ -29,12 +32,7 @@ class car
     double drag_area; //drag area
 };
 
-
-
-
-
-
-
+#endif
 
 
 

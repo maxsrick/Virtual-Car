@@ -1,5 +1,4 @@
-#idndef TRACK_H
-#def TRACK_H
+#include "track.h"
 
 track::track()
 {
@@ -11,5 +10,3 @@ track::track()
 }
 
 //add typical accessor and mutator methods
-
-#endif

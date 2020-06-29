@@ -1,3 +1,6 @@
+#idndef TRACK_H
+#def TRACK_H
+
 class track
 {
   public:
@@ -11,7 +14,7 @@ class track
     double fluid_density; // only used for air in our case
 };
 
-
+#endif
 
 
 
