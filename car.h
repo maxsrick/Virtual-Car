@@ -4,8 +4,51 @@
 class car
 {
   public:
+      //constructor
     car();
-    //include typical accessor and mutator methods
+    
+      //accessor methods
+    double get_mass();
+    double get_gravity();
+    double get_gravitational_acceleration();
+    double get_weight();
+    double get_distance();
+    double get_velocity();
+    double get_maxspeed();
+    double get_acceleration();
+    double get_altitude();
+    double get_orientation();
+    double get_throttle();
+    double get_engine_force();
+    double get_gravitational_force();
+    double get_frictional_force();
+    double get_net_force();
+    double get_power();
+    double get_c_rr();
+    double get_c_drag();
+    double get_drag_area();
+    
+      //mutator methods
+    void set_mass();
+    void set_gravity();
+    void set_gravitational_acceleration();
+    void set_weight();
+    void set_distance();
+    void set_velocity();
+    void set_maxspeed();
+    void set_acceleration();
+    void set_altitude();
+    void set_orientation();
+    void set_throttle();
+    void set_engine_force();
+    void set_gravitational_force();
+    void set_frictional_force();
+    void set_net_force();
+    void set_power();
+    void set_c_rr();
+    void set_c_drag();
+    void set_drag_area();
+    
   private:
     double mass;
     const double gravity; //initialize to 9.81 in constructor

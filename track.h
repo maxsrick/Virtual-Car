@@ -4,9 +4,25 @@
 class track
 {
   public:
+      //constructor
     track();
-    //add typical mutator and accessor methods
+    
+      //accessor methods
+    double get_c_static_friction();
+    double get_c_dynamic_friction();
+    double get_inclination();
+    double get_banking();
+    double get_fluid_density();
+    
+      //mutator methods
+    void set_c_static_friction(double csf);
+    void set_c_dynamic_friction(double cdf);
+    void set_inclination(double i);
+    void set_banking(double b);
+    void set_fluid_density(double fd);
+    
   private:
+      //data members
     double c_static_friction; // co-efficient of static friction
     double c_dynamic_friction; // co-efficient of dynamic friction
     double inclination; // angle of inclination
