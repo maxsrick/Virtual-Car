@@ -2,6 +2,10 @@
 
 // include typical methods, and look up typical values to assign to them
 // contact Caroline or Abdullah for specifics, they have access to the shop and can take measurements
+
+// WE NEED TRIG LIBRARIES FOR ORIENTATION, VERY IMPORTANT!!!
+
+
 car::car()
 {
     mass = 500; // kg
@@ -18,6 +22,7 @@ car::car()
     engine_force = 0; // N
     gravitational_force = weight * sin(orientation); // N; NEED TRIG LIBRARY!
     frictional_force = 0; // N; needs to be updated by track class based on surface
+    normal_force = gravitational_force * -1; // N; need to figure out direction scheme, also not necessarily true, but we'll cross that bridge when we come to it
     net_force = 0; // N
     power = 0; // W or HP?
     c_rr = 0; // unitless
@@ -56,7 +61,13 @@ void set_velocity(double v) {velocity = v;}
 void set_maxspeed(double m) {maxspeed = m;}
 void set_acceleration(double a) {acceleration = a;}
 void set_altitude(double a) {altitude = a;}
-void set_orientation(double o) {orientation = o;}
+void set_orientation(double o)
+{
+    orientation = o;
+    gravitational_acceleration = gravity * sin(orientation);
+    gravitational_force = mass * gravitational_acceleration;
+    normal_force = gravitational_force * -1;
+}
 void set_throttle(double t) {throttle = t;}
 void set_engine_force(double ef) {engine_force = ef;}
 void set_gravitational_force(double gf) {gravitational_force = gf;}
@@ -66,3 +77,7 @@ void set_power(double p) {power = p;}
 void set_c_rr(double cr) {c_rr = cr;}
 void set_c_drag(double cd) {c_drag = cd;}
 void set_drag_area(double da) {drag_area = da;}
+
+
+// we might want to find a way to condense this, maybe into essential data and auxilary data, because it's quite clogged up rn
+// can you work on the eqautions and relationships we need and get back to me with the necessary data values: ie we only need mass and gravity, storing weight separately is unnecessary, we can just calculate it upon returning it.

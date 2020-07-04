@@ -22,6 +22,7 @@ class car
     double get_engine_force();
     double get_gravitational_force();
     double get_frictional_force();
+    double get_normal_force();
     double get_net_force();
     double get_power();
     double get_c_rr();
@@ -43,6 +44,7 @@ class car
     void set_engine_force(double ef);
     void set_gravitational_force(double gf);
     void set_frictional_force(double ff);
+    void set_normal_force(double nf);
     void set_net_force(double nf);
     void set_power(double p);
     void set_c_rr(double cr);
@@ -68,6 +70,7 @@ class car
     double engine_force;
     double gravitational_force;
     double frictional_force; //calculated using coefficients from track class
+    double normal_force;
     double net_force;
     double power;
     
