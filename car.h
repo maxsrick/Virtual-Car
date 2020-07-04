@@ -29,27 +29,28 @@ class car
     double get_drag_area();
     
       //mutator methods
-    void set_mass();
-    void set_gravity();
-    void set_gravitational_acceleration();
-    void set_weight();
-    void set_distance();
-    void set_velocity();
-    void set_maxspeed();
-    void set_acceleration();
-    void set_altitude();
-    void set_orientation();
-    void set_throttle();
-    void set_engine_force();
-    void set_gravitational_force();
-    void set_frictional_force();
-    void set_net_force();
-    void set_power();
-    void set_c_rr();
-    void set_c_drag();
-    void set_drag_area();
+    void set_mass(double m);
+    void set_gravity(double g);
+    void set_gravitational_acceleration(double ga);
+    void set_weight(double w);
+    void set_distance(double d);
+    void set_velocity(double v);
+    void set_maxspeed(double m);
+    void set_acceleration(double a);
+    void set_altitude(double a);
+    void set_orientation(double o);
+    void set_throttle(double t);
+    void set_engine_force(double ef);
+    void set_gravitational_force(double gf);
+    void set_frictional_force(double ff);
+    void set_net_force(double nf);
+    void set_power(double p);
+    void set_c_rr(double cr);
+    void set_c_drag(double cd);
+    void set_drag_area(double da);
     
   private:
+      //note down units for all measurements in comments
     double mass;
     const double gravity; //initialize to 9.81 in constructor
     double gravitational_acceleration; //start at 9.81, adjust when orientation changes

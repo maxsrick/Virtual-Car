@@ -1,6 +1,8 @@
 #idndef TRACK_H
 #def TRACK_H
 
+#inlcude "car.h"
+
 class track
 {
   public:
@@ -22,12 +24,13 @@ class track
     void set_fluid_density(double fd);
     
   private:
-      //data members
+      //data members; note down units for all measurements in comments
     double c_static_friction; // co-efficient of static friction
     double c_dynamic_friction; // co-efficient of dynamic friction
     double inclination; // angle of inclination
     double banking; // angle of banking
     double fluid_density; // only used for air in our case
+    car* shadow; // is this the best way to link the two classes?
 };
 
 #endif
