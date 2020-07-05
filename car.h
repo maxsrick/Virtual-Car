@@ -1,6 +1,8 @@
 #ifndef CAR_H
 #define CAR_H
 
+class track;
+
 class car
 {
   public:
@@ -77,6 +79,7 @@ class car
     double c_rr; //coefficient of rolling resistance
     double c_drag; // coefficient of drag
     double drag_area; //drag area
+    track* m_track;
 };
 
 #endif

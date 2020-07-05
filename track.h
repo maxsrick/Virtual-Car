@@ -1,8 +1,7 @@
-#idndef TRACK_H
-#def TRACK_H
+#ifndef TRACK_H
+#define TRACK_H
 
-#inlcude "car.h"
-
+#include "car.h"
 class track
 {
   public:
@@ -30,7 +29,7 @@ class track
     double inclination; // angle of inclination
     double banking; // angle of banking
     double fluid_density; // only used for air in our case
-    car* shadow; // is this the best way to link the two classes?
+    car* m_car;
 };
 
 #endif
