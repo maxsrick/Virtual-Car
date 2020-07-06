@@ -1,12 +1,13 @@
 #include "track.h"
 
-track::track()
+track::track(const car* car)
 {
     c_static_friction = 0.7; //change to typical value for asphalt
     c_dynamic_friction = 0.6; //change to typical value for asphalt
     inclination = 0.0;
     banking = 0.0;
     fluid_density = 1.292; //typical value for air at room pressure and standard atm press.
+    m_car = car;
 }
 
   //accessor methods

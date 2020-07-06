@@ -7,13 +7,11 @@ class car
 {
   public:
       //constructor
-    car();
+    car(const track* track);
+    double frictional_force()
     
       //accessor methods
     double get_mass();
-    double get_gravity();
-    double get_gravitational_acceleration();
-    double get_weight();
     double get_distance();
     double get_velocity();
     double get_maxspeed();
@@ -33,20 +31,10 @@ class car
     
       //mutator methods
     void set_mass(double m);
-    void set_gravity(double g);
-    void set_gravitational_acceleration(double ga);
-    void set_weight(double w);
-    void set_distance(double d);
-    void set_velocity(double v);
-    void set_maxspeed(double m);
-    void set_acceleration(double a);
     void set_altitude(double a);
     void set_orientation(double o);
     void set_throttle(double t);
     void set_engine_force(double ef);
-    void set_gravitational_force(double gf);
-    void set_frictional_force(double ff);
-    void set_normal_force(double nf);
     void set_net_force(double nf);
     void set_power(double p);
     void set_c_rr(double cr);
@@ -58,7 +46,6 @@ class car
     double mass;
     const double gravity; //initialize to 9.81 in constructor
     double gravitational_acceleration; //start at 9.81, adjust when orientation changes
-    double weight;
     
     double distance;
     double velocity;
@@ -71,7 +58,6 @@ class car
     double throttle; //set to engine acceleration?
     double engine_force;
     double gravitational_force;
-    double frictional_force; //calculated using coefficients from track class
     double normal_force;
     double net_force;
     double power;
