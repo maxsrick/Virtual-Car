@@ -29,8 +29,9 @@ car::car(const track* track)
 double frictional_force()
 {
     if (speed==0)
-        return ...
+        return m_track->get_c_static_friction(); 
     else 
+        return m_track->get_c_dynamic_friction();
 }
 
   // accessor methods
@@ -60,12 +61,21 @@ void set_orientation(double o)
 {
     orientation = o;
     gravitational_acceleration = gravity * sin(orientation);
+    net_force -= gravitational_force;
+    net_force -= normal_force;
     gravitational_force = mass * gravitational_acceleration;
     normal_force = gravitational_force * -1;
+    net_force += gravitational_force;
+    net_force += normal_force;
 }
 void set_throttle(double t) {throttle = t;}
 void set_engine_force(double ef) {engine_force = ef;}
-void set_frictional_force(double ff) {frictional_force = ff;} //change this implementation
+void set_frictional_force(double ff)
+{
+    net_force -= frictional_force;
+    frictional_force = ff;
+    net_force += frictional_force;
+}
 void set_net_force(double nf) {net_force = nf;}
 void set_power(double p) {power = p;}
 void set_c_rr(double cr) {c_rr = cr;}
