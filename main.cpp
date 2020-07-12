@@ -23,7 +23,7 @@ double down_ramp(car* Car, track* Track)
 
 int main()
 {
-    track* t();
+    track* t;
     t->set_inclination(30);
     t->set_length(100);
     car* c(t);
