@@ -2,6 +2,7 @@
 #define TRACK_H
 
 #include "car.h"
+
 class track
 {
   public:
@@ -14,6 +15,7 @@ class track
     double get_inclination();
     double get_banking();
     double get_fluid_density();
+    double get_length();
     
       //mutator methods
     void set_c_static_friction(double csf);
@@ -21,6 +23,7 @@ class track
     void set_inclination(double i);
     void set_banking(double b);
     void set_fluid_density(double fd);
+    void set_length(double l);
     
   private:
       //data members; note down units for all measurements in comments
@@ -29,13 +32,14 @@ class track
     double inclination; // angle of inclination
     double banking; // angle of banking
     double fluid_density; // only used for air in our case
+    double length;
     car* m_car;
 };
 
 #endif
 
 
-
+// banking might not be needed
 
 
 

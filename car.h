@@ -40,6 +40,7 @@ class car
     void set_c_rr(double cr);
     void set_c_drag(double cd);
     void set_drag_area(double da);
+    void travel(double d);
     
   private:
       //note down units for all measurements in comments

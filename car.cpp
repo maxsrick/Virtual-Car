@@ -81,6 +81,7 @@ void set_power(double p) {power = p;}
 void set_c_rr(double cr) {c_rr = cr;}
 void set_c_drag(double cd) {c_drag = cd;}
 void set_drag_area(double da) {drag_area = da;}
+void travel(double d) {distance+=d;}
 
 //we might need weight and then an x and y of gravitational
 // we might want to find a way to condense this, maybe into essential data and auxilary data, because it's quite clogged up rn
