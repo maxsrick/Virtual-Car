@@ -68,7 +68,7 @@ void car::set_orientation(double o)
     orientation = o;
     gravitational_acceleration = gravity * sin(orientation);
     gravitational_force = mass * gravitational_acceleration;
-    normal_force = (-1.0) * mass * gravity * ; //is this true
+    normal_force = (-1.0) * mass * gravity * cos(orientation); //is this true
     update_net_force();
 }
 void car::set_throttle(double t) {throttle = t;}
