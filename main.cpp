@@ -1,5 +1,6 @@
 #include "car.h"
 #include "track.h"
+#include <iostream>
 #include <math.h>
 
 const double estimate_weight = 73.0;
@@ -20,5 +21,11 @@ double down_ramp(car* Car, track* Track)
 
 int main()
 {
-    
+    track* t();
+    t->set_inclination(30);
+    t->set_length(100);
+    car* c(t);
+    car->set_mass(estimate_weight);
+    double seconds = down_ramp(c, t);
+    cout << seconds << endl;
 }

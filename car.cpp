@@ -7,7 +7,7 @@
 car::car(const track* track)
 {
     mass = 500; // kg
-    gravity = 9.81; // m/s^2
+    gravity = -9.81; // m/s^2
     gravitational_acceleration = 9.81; // m/s^2
     weight = mass * gravity; // N
     distance = 0; // m
@@ -26,62 +26,64 @@ car::car(const track* track)
     drag_area = 0; // m^2
     m_track = track;
 }
-double frictional_force()
+//auxillary functions
+double car::frictional_force()
 {
-    if (speed==0)
-        return m_track->get_c_static_friction(); 
+    if (velocity==0)
+        return (-1.0)*(m_track->get_c_static_friction())*normal_force; 
     else 
-        return m_track->get_c_dynamic_friction();
+        return (-1.0)*(m_track->get_c_dynamic_friction())*normal_force;
+}
+
+void car::update_net_force()
+{
+    net_force = normal_force + gravitational_force + engine_force + frictional_force();
 }
 
   // accessor methods
-double get_mass() {return mass;}
-double get_gravity() {return gravity;}
-double get_gravitational_acceleration() {return gravitational_acceleration;}
-double get_distance() {return distance;}
-double get_velocity() {return velocity;}
-double get_acceleration() {return acceleration;}
-double get_altitude() {return altitude;}
-double get_orientation() {return orientation;}
-double get_throttle() {return throttle;}
-double get_engine_force() {return engine_force;}
-double get_gravitational_force() {return gravitational_force;}
-double get_frictional_force() {return frictional_force;}
-double get_normal_force() {return normal_force}
-double get_net_force() {return net_force;}
-double get_power() {return power;}
-double get_c_rr() {return c_rr;}
-double get_c_drag() {return c_drag;}
-double get_drag_area() {return drag_area;}
+double car::get_mass() {return mass;}
+double car::get_gravity() {return gravity;}
+double car::get_gravitational_acceleration() {return gravitational_acceleration;}
+double car::get_distance() {return distance;}
+double car::get_velocity() {return velocity;}
+double car::get_acceleration() {return acceleration;}
+double car::get_altitude() {return altitude;}
+double car::get_orientation() {return orientation;}
+double car::get_throttle() {return throttle;}
+double car::get_engine_force() {return engine_force;}
+double car::get_gravitational_force() {return gravitational_force;}
+double car::get_frictional_force() {return frictional_force;}
+double car::get_normal_force() {return normal_force}
+double car::get_net_force() {return net_force;}
+double car::get_power() {return power;}
+double car::get_c_rr() {return c_rr;}
+double car::get_c_drag() {return c_drag;}
+double car::get_drag_area() {return drag_area;}
 
   // mutator methods
-void set_mass(double m) {mass = m;}
-void set_altitude(double a) {altitude = a;}
-void set_orientation(double o)
+void car::set_mass(double m) {mass = m;}
+void car::set_altitude(double a) {altitude = a;}
+void car::set_orientation(double o)
 {
     orientation = o;
     gravitational_acceleration = gravity * sin(orientation);
-    net_force -= gravitational_force;
-    net_force -= normal_force;
     gravitational_force = mass * gravitational_acceleration;
-    normal_force = gravitational_force * -1;
-    net_force += gravitational_force;
-    net_force += normal_force;
+    normal_force = (-1.0) * mass * gravity * ; //is this true
+    update_net_force();
 }
-void set_throttle(double t) {throttle = t;}
-void set_engine_force(double ef) {engine_force = ef;}
-void set_frictional_force(double ff)
+void car::set_throttle(double t) {throttle = t;}
+void car::set_engine_force(double ef) {engine_force = ef;}
+void car::set_frictional_force(double ff)
 {
-    net_force -= frictional_force;
     frictional_force = ff;
-    net_force += frictional_force;
+    update_net_force();
 }
-void set_net_force(double nf) {net_force = nf;}
-void set_power(double p) {power = p;}
-void set_c_rr(double cr) {c_rr = cr;}
-void set_c_drag(double cd) {c_drag = cd;}
-void set_drag_area(double da) {drag_area = da;}
-void travel(double d) {distance+=d;}
+void car::set_net_force(double nf) {net_force = nf;}
+void car::set_power(double p) {power = p;}
+void car::set_c_rr(double cr) {c_rr = cr;}
+void car::set_c_drag(double cd) {c_drag = cd;}
+void car::set_drag_area(double da) {drag_area = da;}
+void car::travel(double d) {distance += d;}
 
 //we might need weight and then an x and y of gravitational
 // we might want to find a way to condense this, maybe into essential data and auxilary data, because it's quite clogged up rn
