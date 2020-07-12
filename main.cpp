@@ -3,6 +3,8 @@
 #include <iostream>
 #include <math.h>
 
+using namespace std;
+
 const double estimate_weight = 73.0;
 
 double down_ramp(car* Car, track* Track)
