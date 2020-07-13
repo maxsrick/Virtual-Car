@@ -1,15 +1,18 @@
 #ifndef CAR_H
 #define CAR_H
 
-class track;
+#include "track.h"
 
 class car
 {
   public:
       //constructor
-    car(const track* track);
-    double frictional_force()
-    
+    car(track* track);
+
+      //auxillary functions
+    double frictional_force();
+    void update_net_force();
+
       //accessor methods
     double get_mass();
     double get_distance();
@@ -21,6 +24,7 @@ class car
     double get_throttle();
     double get_engine_force();
     double get_gravitational_force();
+    double get_gravitational_acceleration();
     double get_frictional_force();
     double get_normal_force();
     double get_net_force();
@@ -35,17 +39,17 @@ class car
     void set_orientation(double o);
     void set_throttle(double t);
     void set_engine_force(double ef);
-    void set_net_force(double nf);
     void set_power(double p);
     void set_c_rr(double cr);
     void set_c_drag(double cd);
     void set_drag_area(double da);
+    void set_velocity(double v);
     void travel(double d);
     
   private:
       //note down units for all measurements in comments
     double mass;
-    const double gravity; //initialize to 9.81 in constructor
+    const double gravity = -9.81; //initialize to 9.81 in constructor
     double gravitational_acceleration; //start at 9.81, adjust when orientation changes
     
     double distance;
@@ -61,6 +65,7 @@ class car
     double gravitational_force;
     double normal_force;
     double net_force;
+    //double net_force_y;
     double power;
     
     double c_rr; //coefficient of rolling resistance
@@ -70,17 +75,3 @@ class car
 };
 
 #endif
-
-
-
-/*
- Drag Testing
-
- Goal: Calculating the drag force on the car.
- 
- Through the DAQ, we can measure acceleration, velocity, altitude, and orientation in real-time. Using this information, we may be able to conduct an experiment to roughly calculate the drag force acting on the car. We could do so by allowing the car to “free-fall” down the ramp, without any external force from the engine. Then, we can use Newton’s second law to calculate the drag force: ∑F = mgsinθ−μN−Fd. Further, we may attempt to calculate the drag coefficient, which we find from Fd = 0.5 * CρAv2, where C is the drag coefficient.
- 
- Expected relationships:
- when orientation changes, gravitational force and altitude change
- when any force changes, net force changes, as well as velocity, acceleration, etc.
- */
