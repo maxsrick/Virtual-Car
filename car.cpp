@@ -17,7 +17,8 @@ car::car(track* track)
     engine_force = 0; // N
     gravitational_force = mass * gravitational_acceleration; // N
     normal_force = gravitational_force * -1; // N; need to figure out direction scheme, also not necessarily true, but we'll cross that bridge when we come to it
-    net_force = 0; // N
+    net_force_x = 0; // N
+    net_force_y = 0; // N
     power = 0; // W or HP?
     c_rr = 0; // unitless
     c_drag = 0; // unitless
@@ -35,7 +36,9 @@ double car::frictional_force()
 
 void car::update_net_force()
 {
-    net_force = normal_force + gravitational_force + engine_force + frictional_force();
+    //net_force = normal_force + gravitational_force + engine_force + frictional_force();
+    net_force_x = 0; //whatever this would be
+    net_force_y = 0; //whatever this would be
 }
 
   // accessor methods
@@ -50,7 +53,8 @@ double car::get_throttle() {return throttle;}
 double car::get_engine_force() {return engine_force;}
 double car::get_gravitational_force() {return gravitational_force;}
 double car::get_normal_force() {return normal_force;}
-double car::get_net_force() {return net_force;}
+double car::get_net_force_x() {return net_force_x;}
+double car::get_net_force_y() {return net_force_y;}
 double car::get_power() {return power;}
 double car::get_c_rr() {return c_rr;}
 double car::get_c_drag() {return c_drag;}

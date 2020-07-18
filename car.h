@@ -27,7 +27,8 @@ class car
     double get_gravitational_acceleration();
     double get_frictional_force();
     double get_normal_force();
-    double get_net_force();
+    double get_net_force_x();
+    double get_net_force_y();
     double get_power();
     double get_c_rr();
     double get_c_drag();
@@ -64,8 +65,8 @@ class car
     double engine_force;
     double gravitational_force;
     double normal_force;
-    double net_force;
-    //double net_force_y;
+    double net_force_x;
+    double net_force_y;
     double power;
     
     double c_rr; //coefficient of rolling resistance
