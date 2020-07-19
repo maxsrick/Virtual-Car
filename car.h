@@ -50,7 +50,7 @@ class car
   private:
       //note down units for all measurements in comments
     double mass;
-    const double gravity = -9.81; //initialize to 9.81 in constructor
+    double gravity; //initialize to 9.81 in constructor
     double gravitational_acceleration; //start at 9.81, adjust when orientation changes
     
     double distance;

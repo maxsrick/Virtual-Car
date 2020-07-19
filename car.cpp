@@ -7,6 +7,7 @@
 car::car(track* track)
 {
     mass = 500; // kg
+    gravity = -9.81; //m/s^2
     gravitational_acceleration = -9.81; // m/s^2
     distance = 0; // m
     velocity = 0; // m/s

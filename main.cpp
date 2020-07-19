@@ -12,7 +12,7 @@ double down_ramp(car* Car, track* Track)
     double angle = Track->get_inclination();
     double distance = Track->get_length();
     Car->set_orientation(angle);
-    double net_force = Car->get_net_force();
+    double net_force = Car->get_net_force_x();
     double a = net_force / Car->get_mass();
     double vf = sqrt(2*a*distance);
     double t = sqrt(2*distance/a);
