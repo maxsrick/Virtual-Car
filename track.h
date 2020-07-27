@@ -1,5 +1,13 @@
 #ifndef TRACK_H
 #define TRACK_H
+#include <vector>
+
+struct segment
+{
+  double inclination;
+  double length;
+  double banking;
+};
 
 class track
 {
@@ -22,6 +30,7 @@ class track
     void set_banking(double b);
     void set_fluid_density(double fd);
     void set_length(double l);
+    std::vector<segment> segments;
     
   private:
       //data members; note down units for all measurements in comments
