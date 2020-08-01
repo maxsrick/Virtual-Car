@@ -5,10 +5,13 @@
 // include typical methods, and look up typical values to assign to them
 // contact Caroline or Abdullah for specifics, they have access to the shop and can take measurements
 
+// Note: x-axis is positive to the right
+//       y-axis is positive in the downward direction, aka gravity is positive
+
 car::car(track* Track)
 {
-    mass = 500; // kg
-    gravity = 9.81; //m/s^2
+    mass = 33; // kg
+    gravity = 9.81; // m/s^2
     distance = 0; // m
     velocity = 0; // m/s
     acceleration = 0; // m/s^2
@@ -30,9 +33,9 @@ car::car(track* Track)
 //auxillary functions
 double car::frictional_force()
 {
-    if (velocity==0)
+    if (velocity==0) // is velocity = 0, use coefficient for static friction
         return (m_track->get_c_static_friction())*normal_force;
-    else
+    else // if velocity is non-zero, use coefficient for dynamic friction
         return (m_track->get_c_dynamic_friction())*normal_force;
 }
 
@@ -71,7 +74,7 @@ void car::set_orientation(double o)
     orientation = o;
     gravitational_force_x = mass * gravity * sin(orientation); 
     gravitational_force_y = mass * gravity * cos(orientation);
-    normal_force = (-1.0) * gravitational_force_y;
+    normal_force = (-1.0) * gravitational_force_y; // normal force is in the opposite direction
     update_net_force();
 }
 void car::set_throttle(double t) {throttle = t;}

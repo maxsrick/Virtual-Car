@@ -33,7 +33,7 @@ int main()
     t->set_inclination(M_PI/4);
     t->set_length(100);
     car* c = new car(t);
-    c->set_mass(20);
+    c->set_mass(33);
     double seconds = down_ramp(c, t);
     cout << seconds << endl;
     delete c;
