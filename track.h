@@ -7,6 +7,7 @@ struct segment
   double inclination;
   double length;
   double banking;
+  double turnangle;
 };
 
 class track
@@ -30,7 +31,8 @@ class track
     void set_banking(double b);
     void set_fluid_density(double fd);
     void set_length(double l);
-    std::vector<segment> segments;
+    void add_segment(segment* seg);
+    segment* get_segment(int i);
     
   private:
       //data members; note down units for all measurements in comments
@@ -40,6 +42,7 @@ class track
     double banking; // angle of banking
     double fluid_density; // only used for air in our case
     double length;
+    std::vector<segment> segments;
 };
 
 #endif

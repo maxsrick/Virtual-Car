@@ -23,6 +23,13 @@ double track::get_fluid_density() {return fluid_density;}
 
 double track::get_length() {return length;}
 
+segment* get_segment(int i) 
+{
+	if (i >= 0 && i < segments.size())
+	{
+		return &(segments[i]);
+	}
+}
   //mutator methods - note: adjust angles and density for gravity, etc.
 void track::set_c_static_friction(double csf) {c_static_friction = csf;}
 
@@ -35,3 +42,5 @@ void track::set_banking(double b) {banking = b;}
 void track::set_fluid_density(double fd) {fluid_density = fd;}
 
 void track::set_length(double l) {length = l;}
+
+void add_segment(segment* seg) {segments.push_back(*seg)}
