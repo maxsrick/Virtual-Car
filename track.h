@@ -4,10 +4,10 @@
 
 struct segment
 {
-  double inclination;
-  double length;
-  double banking;
-  double turnangle;
+  double inclination = 0; // radians
+  double length = 0;      // meters
+  double banking = 0;     // radians
+  double turnangle = 0;   // radians
 };
 
 class track
@@ -33,6 +33,7 @@ class track
     void set_length(double l);
     void add_segment(segment* seg);
     segment* get_segment(int i);
+    int get_numsegs();
     
   private:
       //data members; note down units for all measurements in comments
@@ -43,6 +44,7 @@ class track
     double fluid_density; // only used for air in our case
     double length;
     std::vector<segment> segments;
+    int num_segs;
 };
 
 #endif

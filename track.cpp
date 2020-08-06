@@ -30,7 +30,11 @@ segment* get_segment(int i)
 		return &(segments[i]);
 	}
 }
+
+int get_numsegs() {return numsegs;}
+
   //mutator methods - note: adjust angles and density for gravity, etc.
+}
 void track::set_c_static_friction(double csf) {c_static_friction = csf;}
 
 void track::set_c_dynamic_friction(double cdf) {c_dynamic_friction = cdf;}
@@ -43,4 +47,9 @@ void track::set_fluid_density(double fd) {fluid_density = fd;}
 
 void track::set_length(double l) {length = l;}
 
-void add_segment(segment* seg) {segments.push_back(*seg)}
+void add_segment(segment* seg) 
+{
+	segments.push_back(*seg)
+	length+=seg.length;
+	numsegs++;
+}
