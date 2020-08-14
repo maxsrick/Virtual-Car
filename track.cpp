@@ -8,6 +8,20 @@ track::track()
     banking = 0.0;
     fluid_density = 1.292; //typical value for air at room pressure and standard atm press.
     length = 0.0;
+
+    segment long_straight;
+    long_straight.inclination = 0.4612 * M_PI / 180.0;
+    long_straight.length = 584.3;
+    segment top_turn;
+    top_turn.turnangle = M_PI;
+    top_turn.length = 58.996;
+    segment other_straight(long_straight);
+    other_straight.inclination *= -1.0;
+    segment bot_turn(top_turn);
+    add_segment(&long_straight);
+    add_segment(&bot_turn);
+    add_segment(&other_straight);
+    add_segment(&top_turn);
 }
 
   //accessor methods
@@ -47,9 +61,38 @@ void track::set_fluid_density(double fd) {fluid_density = fd;}
 
 void track::set_length(double l) {length = l;}
 
-void add_segment(segment* seg) 
+void track::add_segment(segment* seg) 
 {
 	segments.push_back(*seg)
 	length+=seg.length;
 	numsegs++;
 }
+
+double track::one_segment(car* Car, segment* Segment)
+{
+  double time = 0.0;
+  if (Segment.turnangle==0)
+  {
+    //ramp
+    //also update car's altitude
+  }
+  else
+  {
+    //turn physics
+  }
+  return time;
+}
+
+double track::run(car* Car)
+{
+    double time = 0.0;
+    for (int i=0; i<numsegs(); i++)
+    {
+        time += one_segment(Car, get_segment(i));
+    }
+    return time;
+}
+
+
+
+

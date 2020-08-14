@@ -2,6 +2,8 @@
 #define TRACK_H
 #include <vector>
 
+//may not need banking
+
 struct segment
 {
   double inclination = 0; // radians
@@ -34,7 +36,10 @@ class track
     void add_segment(segment* seg);
     segment* get_segment(int i);
     int get_numsegs();
-    
+
+    double one_segment(car* Car, segment* Segment);
+    double track::run(car* Car);
+
   private:
       //data members; note down units for all measurements in comments
     double c_static_friction; // co-efficient of static friction
