@@ -8,7 +8,7 @@
 car::car(track* Track)
 {
     mass = 500; // kg
-    gravity = 9.81; //m/s^2
+    gravity = -9.81; //m/s^2
     distance = 0; // m
     velocity = 0; // m/s
     acceleration = 0; // m/s^2
@@ -65,7 +65,7 @@ double car::get_drag_force() {return drag_force;}
 
   // mutator methods
 void car::set_mass(double m) {mass = m;}
-void car::set_altitude(double a) {altitude = a;}
+void car::climb(double d) {altitude += d;}
 void car::set_orientation(double o)
 {
     orientation = o;

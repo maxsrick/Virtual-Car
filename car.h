@@ -37,7 +37,6 @@ class car
     
       //mutator methods
     void set_mass(double m);
-    void set_altitude(double a);
     void set_orientation(double o);
     void set_throttle(double t);
     void set_engine_force(double ef);
@@ -47,6 +46,7 @@ class car
     void set_drag_area(double da);
     void set_drag_force(double df);
     void set_velocity(double v);
+    void climb(double a);
     void travel(double d);
     
   private:

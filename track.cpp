@@ -73,14 +73,23 @@ double track::one_segment(car* Car, segment* Segment)
   double time = 0.0;
   if (Segment.turnangle==0)
   {
-    //ramp
-    //also update car's altitude
+    double angle = Segment->inclination;
+    double length = Segment->length;
+    Car->set_orientation(angle);
+    double net_force = Car->get_net_force_x();
+    double a = net_force / Car->get_mass();
+    double vf = sqrt(2*a*distance);
+    double t = sqrt(2*distance/a);
+    Car->travel(distance);
+    Car->set_velocity(vf);
+    Car->climb(length*sin(angle));
+    return t;
+  }else{
+    double speed = Car->get_velocity();
+    double length = Segment->length;
+    double t = length/speed;
+    return t;
   }
-  else
-  {
-    //turn physics
-  }
-  return time;
 }
 
 double track::run(car* Car)

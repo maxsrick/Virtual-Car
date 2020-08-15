@@ -13,7 +13,7 @@ double down_ramp(car* Car, track* Track)
     double angle = Track->get_inclination();
     double distance = Track->get_length();
     Car->set_orientation(angle);
-    cout << Car->get_gravitational_force_x() << endl;
+    //cout << Car->get_gravitational_force_x() << endl;
     double net_force = Car->get_net_force_x();
     //cout << Car->get_frictional_force() << endl;
     cout << "net: " << net_force << endl;
