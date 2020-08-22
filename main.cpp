@@ -32,6 +32,8 @@ int main()
     track* t = new track; //put this all into a default constructor
     car* c = new car(t);
     c->set_mass(20);
+    double time = track.run(c);
+    cout << time << endl;
     delete c;
     delete t;
 }

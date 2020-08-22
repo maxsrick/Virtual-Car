@@ -2,7 +2,7 @@
 #define TRACK_H
 #include <vector>
 
-//may not need banking
+class car;
 
 struct segment
 {
@@ -38,7 +38,8 @@ class track
     int get_numsegs();
 
     double one_segment(car* Car, segment* Segment);
-    double track::run(car* Car);
+    double run(car* Car);
+    void reset_segments();
 
   private:
       //data members; note down units for all measurements in comments
