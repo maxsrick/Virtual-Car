@@ -29,6 +29,7 @@ double down_ramp(car* Car, track* Track) // if not required, MUST be removed; ju
     cout << "net: " << net_force << endl;
     double a = net_force / Car->get_mass();
     cout << "a: " << a << endl;
+    // missing initial velocity
     double vf = sqrt(2*a*distance);
     cout << "vf: " << vf << endl;
     double t = sqrt(2*distance/a);

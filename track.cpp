@@ -1,5 +1,6 @@
 #include "track.h"
 #include "car.h"
+#include "physics.h"
 #include <math.h>
 #include <iostream>
 using namespace std;
@@ -90,23 +91,15 @@ double track::one_segment(car* Car, segment* Segment)
     double angle = Segment->inclination;
     double distance = Segment->length;
     double vi = Car->get_velocity();
-      cerr << "vi: " << vi << endl; // prints out 0 despite main setting it to 0.1
+//      cerr << "vi: " << vi << endl;
     Car->set_orientation(angle);
     double net_force = Car->get_net_force_x(); // you can't just label the x component as net force
-      cerr << "net X: " << net_force << endl;
+//      cerr << "net X: " << net_force << endl;
     double a = net_force / Car->get_mass();
-//    cout << "net force: " << net_force << endl;
-    double vf = sqrt(vi*vi + 2*a*distance);
-      cerr << "vf: " << vf << endl;
-    double t = 0.0;
-    double t1 = (1/a)*(-vi + sqrt(vi*vi + 2*a*distance)); //will need to change
-    double t2 = (1/a)*(-vi - sqrt(vi*vi + 2*a*distance));
-    if (t1 > 0)
-    {
-      t = t1;
-    }else{
-      t = t2;
-    }
+//    cerr << "net force: " << net_force << endl;
+    double vf = v_uas(vi, a, distance);
+//      cerr << "vf: " << vf << endl;
+    double t = t_usa(vi, distance, a); // evidently need a more consistent naming scheme
     Car->travel(distance);
     Car->set_velocity(vf);
     Car->climb(distance*sin(angle));
