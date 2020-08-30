@@ -2,11 +2,14 @@
 #include "track.h"
 #include <math.h>
 #include <iostream>
+
+using namespace std;
 // include typical methods, and look up typical values to assign to them
 // contact Caroline or Abdullah for specifics, they have access to the shop and can take measurements
 
 car::car(track* Track)
 {
+    // perhaps the m_ scheme would be helpful
     mass = 500; // kg
     gravity = -9.81; //m/s^2
     distance = 0; // m
@@ -28,18 +31,24 @@ car::car(track* Track)
     m_track = Track;
 }
 //auxillary functions
-double car::frictional_force()
+double car::frictional_force() // sign conventions are absolutely fucked, we need to create documentation to describe what sign convention we plan on using (which we probably should have decided earlier)
 {
     if (velocity==0)
-        return (m_track->get_c_static_friction())*normal_force;
+        return (-1.0 * m_track->get_c_static_friction())*normal_force; // opposes other forces
+    else if (velocity > 0)
+        return (-1.0 * m_track->get_c_dynamic_friction())*normal_force;
     else
-        return (m_track->get_c_dynamic_friction())*normal_force;
+        return m_track->get_c_dynamic_friction()*normal_force;
 }
 
 void car::update_net_force()
 {
+//    std::cerr << "friction: " << frictional_force() << " gravity: " << gravitational_force_x << std::endl;
+    // signs now fixed
     net_force_x = frictional_force() + drag_force + gravitational_force_x + engine_force;
+//    cerr << "net X: " << net_force_x << endl;
     net_force_y = gravitational_force_y + normal_force;
+//    cerr << "net Y: " << net_force_y << endl;
 }
 
   // accessor methods
@@ -69,7 +78,10 @@ void car::climb(double d) {altitude += d;}
 void car::set_orientation(double o)
 {
     orientation = o;
-    gravitational_force_x = mass * gravity * sin(orientation); 
+//    cerr << "o: " << o << endl;
+    gravitational_force_x = mass * gravity * sin(orientation);
+//    std :: cerr << mass << " * " << gravity << " * " << sin(orientation) << std::endl;
+//    std::cerr << "grav_x: " << gravitational_force_x << std::endl;
     gravitational_force_y = mass * gravity * cos(orientation);
     normal_force = (-1.0) * gravitational_force_y;
     update_net_force();

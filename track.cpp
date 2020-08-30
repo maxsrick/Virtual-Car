@@ -1,5 +1,6 @@
 #include "track.h"
 #include "car.h"
+#include "physics.h"
 #include <math.h>
 #include <iostream>
 using namespace std;
@@ -13,19 +14,27 @@ track::track()
     length = 0.0;
     num_segs = 0;
 
-    segment long_straight;
-    long_straight.inclination = 0.4612 * M_PI / 180.0;
+    // straight downward ramp
+    segment long_straight; // need better variable names; why would a new member know what long_straight means?
+//    long_straight.inclination = -1.0 * 0.4612 * M_PI / 180.0; // where has this number come from? that's near zero inclination
+    
+    long_straight.inclination = -M_PI/4; // temporary measure; signage scheme must be determined!!! Use negative for downward ramp? causes issues with gravity sign and formula, perhaps invert and use negative angle for incline
+    
     long_straight.length = 584.3;
-    segment top_turn;
-    top_turn.turnangle = M_PI;
-    top_turn.length = 58.996;
-    segment other_straight(long_straight);
-    other_straight.inclination *= -1.0;
-    segment bot_turn(top_turn);
     add_segment(&long_straight);
-    //add_segment(&bot_turn);
-    //add_segment(&other_straight);
-    //add_segment(&top_turn);
+    // turn at top
+//    segment top_turn;
+//    top_turn.turnangle = M_PI;
+//    top_turn.length = 58.996;
+//    add_segment(&top_turn);
+    // straight upward ramp
+//    segment other_straight(long_straight);
+//    other_straight.inclination *= -1.0;
+//    add_segment(&other_straight);
+    // turn at bottom of ramp
+//    segment bot_turn(top_turn);
+//    add_segment(&bot_turn);
+    
 }
 
   //accessor methods
@@ -73,6 +82,8 @@ void track::add_segment(segment* seg)
     num_segs++;
 }
 
+
+// can we put physics formulae into their own methods? that way we can act on data much more cleanly and efficiently
 double track::one_segment(car* Car, segment* Segment)
 {
   if (Segment->turnangle==0)
@@ -80,20 +91,15 @@ double track::one_segment(car* Car, segment* Segment)
     double angle = Segment->inclination;
     double distance = Segment->length;
     double vi = Car->get_velocity();
+//      cerr << "vi: " << vi << endl;
     Car->set_orientation(angle);
-    double net_force = Car->get_net_force_x();
+    double net_force = Car->get_net_force_x(); // you can't just label the x component as net force
+//      cerr << "net X: " << net_force << endl;
     double a = net_force / Car->get_mass();
-    cout << "net force: " << net_force << endl;
-    double vf = sqrt(vi*vi + 2*a*distance);
-    double t = 0.0;
-    double t1 = (1/a)*(-vi + sqrt(vi*vi + 2*a*distance)); //will need to change
-    double t2 = (1/a)*(-vi - sqrt(vi*vi + 2*a*distance));
-    if (t1 > 0)
-    {
-      t = t1;
-    }else{
-      t = t2;
-    }
+//    cerr << "net force: " << net_force << endl;
+    double vf = v_uas(vi, a, distance);
+//      cerr << "vf: " << vf << endl;
+    double t = t_usa(vi, distance, a); // evidently need a more consistent naming scheme
     Car->travel(distance);
     Car->set_velocity(vf);
     Car->climb(distance*sin(angle));
