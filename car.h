@@ -46,35 +46,34 @@ class car
     void set_drag_area(double da);
     void set_drag_force(double df);
     void set_velocity(double v);
-    void climb(double a);
+    void climb(double d);
     void travel(double d);
     
   private:
       //note down units for all measurements in comments
-    double mass;
-    double gravity; //initialize to 9.81 in constructor
+    double m_mass;
+    double m_gravity; //initialize to 9.81 in constructor
     
-    double distance;
-    double velocity;
-    double maxspeed;
-    double acceleration;
+    double m_s; //displacement
+    double m_v; //velocity
+    double m_a; //acceleration
     
-    double altitude;
-    double orientation; //equal to angle of inclination of track
+    double m_altitude;
+    double m_orientation; //equal to angle of inclination of track
     
-    double throttle; //set to engine acceleration?
-    double engine_force;
-    double gravitational_force_x;
-    double gravitational_force_y;
-    double normal_force;
-    double net_force_x;
-    double net_force_y;
-    double drag_force;
-    double power;
+    double m_throttle; //set to engine acceleration?
+    double m_engine_force;
+    double m_gravitational_force_x;
+    double m_gravitational_force_y;
+    double m_normal_force;
+    double m_net_force_x;
+    double m_net_force_y;
+    double m_drag_force;
+    double m_power;
     
-    double c_rr; //coefficient of rolling resistance
-    double c_drag; // coefficient of drag
-    double drag_area; //drag area
+    double m_c_rr; //coefficient of rolling resistance
+    double m_c_drag; // coefficient of drag
+    double m_drag_area; //drag area
     track* m_track;
 };
 
