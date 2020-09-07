@@ -29,7 +29,7 @@ class car
     double get_net_force_x();
     double get_net_force_y();
     double get_power();
-    double get_c_rr();
+    double get_c_rolling_resistance();
     double get_c_drag();
     double get_drag_force();
     double get_drag_area();
@@ -49,18 +49,17 @@ class car
     void travel(double d);
     
   private:
-      //note down units for all measurements in comments
     double m_mass;
-    double m_gravity; //initialize to 9.81 in constructor
+    double m_gravity;
     
     double m_s; //displacement
     double m_v; //velocity
     double m_a; //acceleration
     
     double m_altitude;
-    double m_orientation; //equal to angle of inclination of track
+    double m_orientation; //angle of inclination of track
     
-    double m_throttle; //set to engine acceleration?
+    double m_throttle;
     double m_engine_force;
     double m_gravitational_force_x;
     double m_gravitational_force_y;
