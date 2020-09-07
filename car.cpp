@@ -22,7 +22,7 @@ car::car(track* Track)
     m_net_force_x = 0; // N
     m_net_force_y = 0; // N
     m_power = 0; // W or HP?
-    m_c_rr = 0; // unitless
+    m_c_rolling_resistance = 0; // unitless
     m_c_drag = 0; // unitless
     m_drag_force = 0 ; // N
     m_drag_area = 0; // m^2
@@ -60,12 +60,11 @@ double car::get_throttle() {return m_throttle;}
 double car::get_engine_force() {return m_engine_force;}
 double car::get_gravitational_force_x() {return m_gravitational_force_x;}
 double car::get_gravitational_force_y() {return m_gravitational_force_y;}
-double car::get_frictional_force() {return frictional_force();}
 double car::get_normal_force() {return m_normal_force;}
 double car::get_net_force_x() {return m_net_force_x;}
 double car::get_net_force_y() {return m_net_force_y;}
 double car::get_power() {return m_power;}
-double car::get_c_rr() {return m_c_rr;}
+double car::get_c_rr() {return m_c_rolling_resistance;}
 double car::get_c_drag() {return m_c_drag;}
 double car::get_drag_area() {return m_drag_area;}
 double car::get_drag_force() {return m_drag_force;}
@@ -87,7 +86,7 @@ void car::set_orientation(double o)
 void car::set_throttle(double t) {m_throttle = t;}
 void car::set_engine_force(double ef) {m_engine_force = ef;}
 void car::set_power(double p) {m_power = p;}
-void car::set_c_rr(double cr) {m_c_rr = cr;}
+void car::set_c_rolling_resistance(double cr) {m_c_rolling_resistance = cr;}
 void car::set_c_drag(double cd) {m_c_drag = cd;}
 void car::set_drag_area(double da) {m_drag_area = da;}
 void car::set_drag_force(double df) {m_drag_force = df;}

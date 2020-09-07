@@ -22,19 +22,18 @@ class track
     double get_c_static_friction();
     double get_c_dynamic_friction();
     double get_fluid_density();
-    double get_length();
+    double get_total_length();
     
       //mutator methods
     void set_c_static_friction(double csf);
     void set_c_dynamic_friction(double cdf);
     void set_fluid_density(double fd);
-    void set_length(double l);
     void add_segment(segment* seg);
     segment* get_segment(int i);
     int get_numsegs();
 
-    double run_one_segment(car* Car, segment* Segment);
-    double run(car* Car);
+    double time_to_run_one_segment(car* Car, segment* Segment);
+    double time_to_run(car* Car);
     void reset_segments();
 
   private:
@@ -42,7 +41,7 @@ class track
     double m_c_static_friction; // co-efficient of static friction
     double m_c_dynamic_friction; // co-efficient of dynamic friction
     double m_fluid_density; // only used for air in our case
-    double m_length;
+    double m_total_length;
     std::vector<segment> m_segments;
     int m_num_segs;
 };

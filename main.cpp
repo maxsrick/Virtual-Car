@@ -11,7 +11,7 @@ int main()
     car* c = new car(t);
     c->set_mass(20);
     c->set_velocity(0.2);
-    double time = t->run(c);
+    double time = t->time_to_run(c);
     cout << "time: " << time << endl;
     delete c;
     delete t;

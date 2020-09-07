@@ -25,7 +25,6 @@ class car
     double get_engine_force();
     double get_gravitational_force_x();
     double get_gravitational_force_y();
-    double get_frictional_force();
     double get_normal_force();
     double get_net_force_x();
     double get_net_force_y();
@@ -41,7 +40,7 @@ class car
     void set_throttle(double t);
     void set_engine_force(double ef);
     void set_power(double p);
-    void set_c_rr(double cr);
+    void set_c_rolling_resistance(double cr);
     void set_c_drag(double cd);
     void set_drag_area(double da);
     void set_drag_force(double df);
@@ -71,7 +70,7 @@ class car
     double m_drag_force;
     double m_power;
     
-    double m_c_rr; //coefficient of rolling resistance
+    double m_c_rolling_resistance; //coefficient of rolling resistance
     double m_c_drag; // coefficient of drag
     double m_drag_area; //drag area
     track* m_track;
