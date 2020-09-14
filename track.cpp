@@ -12,27 +12,32 @@ track::track()
     m_total_length = 0.0;
     m_num_segs = 0;
 
-    // straight downward ramp
-    segment downhill_ramp; // need better variable names; why would a new member know what long_straight means? 
-//    long_straight.inclination = -1.0 * 0.4612 * M_PI / 180.0; // where has this number come from? that's near zero inclination
-    
-    downhill_ramp.inclination = -M_PI/4; // temporary measure; signage scheme must be determined!!! Use negative for downward ramp? causes issues with gravity sign and formula, perhaps invert and use negative angle for incline
-    
-    downhill_ramp.length = 584.3;
-    add_segment(&downhill_ramp);
-    // turn at top
-//    segment top_turn;
-//    top_turn.turnangle = M_PI;
-//    top_turn.length = 58.996;
-//    add_segment(&top_turn);
-    // straight upward ramp
-//    segment other_straight(long_straight);
-//    other_straight.inclination *= -1.0;
-//    add_segment(&other_straight);
-    // turn at bottom of ramp
-//    segment bot_turn(top_turn);
-//    add_segment(&bot_turn);
-    
+    //new updated track
+    segment top_turn;
+    top_turn.turnangle = M_PI;
+    top_turn.length = 147.836;
+
+    segment long_downhill;
+    long_downhill.length = 580.762;
+    long_downhill.inclination = -0.00998 * M_PI / 180.0;
+
+    segment bot_turn;
+    bot_turn.turnangle = M_PI;
+    bot_turn.length = 90.785;
+
+    segment first_uphill;
+    first_uphill.length = 291.049;
+    first_uphill.inclination = 0;
+
+    segment second_uphill;
+    second_uphill.length = 306.149;
+    second_uphill.inclination = 0.0165 * M_PI / 180.0;
+
+    add_segment(&top_turn);
+    add_segment(&long_downhill);
+    add_segment(&bot_turn);
+    add_segment(&first_uphill);
+    add_segment(&second_uphill);
 }
 
   //accessor methods
