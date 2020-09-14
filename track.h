@@ -8,8 +8,7 @@ struct segment
 {
   double inclination=0; // radians
   double length=0;      // meters
-  double banking=0;     // radians
-  double turnangle=0;   // radians, may not need
+  double turnangle=0;   // radians
 };
 
 class track
@@ -37,7 +36,6 @@ class track
     void reset_segments();
 
   private:
-      //data members; note down units for all measurements in comments
     double m_c_static_friction; // co-efficient of static friction
     double m_c_dynamic_friction; // co-efficient of dynamic friction
     double m_fluid_density; // only used for air in our case
