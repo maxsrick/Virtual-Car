@@ -11,7 +11,7 @@ car::car(track* Track): m_track(Track)
     m_v = 0; // m/s
     m_a = 0; // m/s^2
     m_altitude = 0; // m above starting point
-    set_orientation(M_PI / 2);
+    set_orientation(0); //this should be zero right?
     m_throttle = 0; // m/s^2?
     m_engine_force = 0; // N
     m_net_force_x = 0; // N
@@ -61,7 +61,12 @@ double car::get_drag_area() {return m_drag_area;}
 double car::get_drag_force() {return m_drag_force;}
 
   // mutator methods
-void car::set_mass(double m) {m_mass = m;}
+void car::set_mass(double m)
+{
+    m_mass = m;
+    set_orientation(m_orientation); //must change values that depend on mass
+    update_net_force();
+}
 void car::climb(double d) {m_altitude += d;}
 void car::set_orientation(double o)
 {
@@ -72,9 +77,13 @@ void car::set_orientation(double o)
     update_net_force();
 }
 void car::set_throttle(double t) {m_throttle = t;}
-void car::set_engine_force(double ef) {m_engine_force = ef;}
+void car::set_engine_force(double ef)
+{
+    m_engine_force = ef;
+    update_net_force();
+}
 void car::set_power(double p) {m_power = p;}
-void car::set_c_rolling_resistance(double cr) {m_c_rolling_resistance = cr;}
+void car::set_c_rolling_resistance(double cr){m_c_rolling_resistance = cr;}
 void car::set_c_drag(double cd) {m_c_drag = cd;}
 void car::set_drag_area(double da) {m_drag_area = da;}
 void car::set_drag_force(double df) {m_drag_force = df;}

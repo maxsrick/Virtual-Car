@@ -86,4 +86,15 @@ double t_usa(double u, double s, double a) {
         return -t;
 }
 
+// no acceleration
+// t = s/u
+double t_us(double u, double s)
+{
+    double t = s/u;
+    if (t >= 0)
+        return t;
+    else
+        return -t;
+}
+
 #endif /* physics_h */
