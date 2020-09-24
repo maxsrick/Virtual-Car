@@ -15,6 +15,7 @@ int main()
     double ms = t->get_total_length()/time;
     cout << "time: " << time << " s"<< endl;
     cout << "average velocity: " << ms << " m/s" << endl;
+    cout << "distance: " << t->get_total_length() << endl;
     delete c;
     delete t;
 }

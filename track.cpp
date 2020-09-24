@@ -81,16 +81,9 @@ double track::time_to_run_one_segment(car* Car, segment* Segment)
     double old_nf = Car->get_net_force_x();
     Car->set_engine_force(-1.0*old_nf); //set engine force to stay at 15mph??
     double net_force_x = Car->get_net_force_x();
-    double a,v,t;
-    if (net_force_x == 0){
-      a = 0;
-      v = v_uas(u, a, s);
-      t = t_us(u, s);
-    }else{
-      a = net_force_x / Car->get_mass();
-      v = v_uas(u, a, s);
-      t = t_usa(u, s, a);
-    }
+    double a = net_force_x / Car->get_mass();
+    double v = v_uas(u, a, s);
+    double t = t_usa(u, s, a);
     Car->travel(s);
     Car->set_velocity(v);
     Car->climb(s*sin(incline_angle));
