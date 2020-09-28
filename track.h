@@ -4,13 +4,6 @@
 using namespace std;
 class car;
 
-struct segment
-{
-  double inclination=0; // radians
-  double length=0;      // meters
-  double turnangle=0;   // radians
-};
-
 class track
 {
   public:

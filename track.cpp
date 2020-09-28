@@ -63,7 +63,7 @@ double track::time_to_run(car* Car)
     for (int i=0; i < m_coordinates.size()-1; i++) //calculating total length
     {
         double s = distance_between_coordinates(&m_coordinates[i], &m_coordinates[i+1]);
-        double incline = angle_between_coordinates(&m_coordinates[i], &m_coordinates[i+1]);
+        double incline_angle = angle_between_coordinates(&m_coordinates[i], &m_coordinates[i+1]);
         double u = Car->get_velocity();
         double old_nf = Car->get_net_force_x();
         Car->set_engine_force(-1.0*old_nf); //set engine force to stay at 15mph??
@@ -75,14 +75,8 @@ double track::time_to_run(car* Car)
         Car->set_velocity(v);
         Car->climb(s*sin(incline_angle));
         Car->set_engine_force(0);
-        time += 1;
+        time += t;
     }
-
-
-
-
-
-
     return time;
 }
 
@@ -102,7 +96,7 @@ double track::distance_between_coordinates(vector<double>* c1, vector<double>* c
 
 double track::angle_between_coordinates(vector<double>* c1, vector<double>* c2)
 {
-    double delta_z = abs((*c1)[2] - (*c2)[2]);
+    double delta_z = (*c1)[2] - (*c2)[2];
     double dist = distance_between_coordinates(c1, c2);
     double angle = asin(delta_z/dist);
     return angle;
