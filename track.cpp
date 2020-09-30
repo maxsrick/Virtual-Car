@@ -3,6 +3,7 @@
 #include "physics.h"
 #include <math.h>
 using namespace std;
+#include <iostream>
 
 track::track()
 {
@@ -12,25 +13,32 @@ track::track()
     m_total_length = 0.0;
     m_num_segs = 0;
 
-    // straight downward ramp
-    segment downhill_ramp;
-    downhill_ramp.inclination = -M_PI/4; //-1.0 * 0.4612 * M_PI / 180.0; // real value
-    downhill_ramp.length = 584.3;
-    add_segment(&downhill_ramp);
-    
-    // rough code for additional segments
-//    segment top_turn;
-//    top_turn.turnangle = M_PI;
-//    top_turn.length = 58.996;
-//    add_segment(&top_turn);
-    
-//    segment uphill_ramp(downhill_ramp);
-//    uphill_ramp.inclination *= -1.0;
-//    add_segment(&uphill_ramp);
+    //new updated track
+    segment top_turn;
+    top_turn.turnangle = M_PI;
+    top_turn.length = 147.836;
 
-//    segment bottom_turn(top_turn);
-//    add_segment(&bottom_turn);
-    
+    segment long_downhill;
+    long_downhill.length = 580.762;
+    long_downhill.inclination = -0.00998 * M_PI / 180.0;
+
+    segment bot_turn;
+    bot_turn.turnangle = M_PI;
+    bot_turn.length = 90.785;
+
+    segment first_uphill;
+    first_uphill.length = 291.049;
+    first_uphill.inclination = 0;
+
+    segment second_uphill;
+    second_uphill.length = 306.149;
+    second_uphill.inclination = 0.0165 * M_PI / 180.0;
+
+    add_segment(&top_turn);
+    add_segment(&long_downhill);
+    add_segment(&bot_turn);
+    add_segment(&first_uphill);
+    add_segment(&second_uphill);
 }
 
   //accessor methods
@@ -70,6 +78,8 @@ double track::time_to_run_one_segment(car* Car, segment* Segment)
     double s = Segment->length;
     double u = Car->get_velocity();
     Car->set_orientation(incline_angle);
+    double old_nf = Car->get_net_force_x();
+    Car->set_engine_force(-1.0*old_nf); //set engine force to stay at 15mph??
     double net_force_x = Car->get_net_force_x();
     double a = net_force_x / Car->get_mass();
     double v = v_uas(u, a, s);
@@ -77,11 +87,14 @@ double track::time_to_run_one_segment(car* Car, segment* Segment)
     Car->travel(s);
     Car->set_velocity(v);
     Car->climb(s*sin(incline_angle));
+    cout << t << endl;
+    Car->set_engine_force(0);
     return t;
   } else { // if the segment is a turn
     double v = Car->get_velocity();
     double s = Segment->length;
     double t = s/v;
+    cout << t << endl;
     return t;
   }
 }
@@ -104,6 +117,5 @@ void track::reset_segments()
     }
     m_num_segs = 0;
 }
-
 
 

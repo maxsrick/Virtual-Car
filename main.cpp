@@ -9,10 +9,13 @@ int main()
 {
     track* t = new track; //put this all into a default constructor
     car* c = new car(t);
-    c->set_mass(20);
-    c->set_velocity(0.2);
+    c->set_mass(33.11); //73 pound estimate weight
+    c->set_velocity(6.7); //15 mph
     double time = t->time_to_run(c);
-    cout << "time: " << time << endl;
+    double ms = t->get_total_length()/time;
+    cout << "time: " << time << " s"<< endl;
+    cout << "average velocity: " << ms << " m/s" << endl;
+    cout << "distance: " << t->get_total_length() << endl;
     delete c;
     delete t;
 }
