@@ -1,3 +1,13 @@
+//
+//  physics.h
+//  virtualCar
+//
+//  Created by Anay Mehta on 29/08/2020.
+//  Copyright © 2020 Anay. All rights reserved.
+//
+
+//add error message for division by 0
+
 #ifndef physics_h
 #define physics_h
 
