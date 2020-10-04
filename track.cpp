@@ -2,8 +2,10 @@
 #include "car.h"
 #include "physics.h"
 #include <math.h>
-using namespace std;
+#include <string>
 #include <iostream>
+#include <fstream>
+using namespace std;
 
 track::track()
 {
@@ -11,34 +13,36 @@ track::track()
     m_c_dynamic_friction = 0.6; //change to typical value for asphalt
     m_fluid_density = 1.292; //typical value for air at room pressure and standard atm press.
     m_total_length = 0.0;
-    m_num_segs = 0;
 
-    //new updated track
-    segment top_turn;
-    top_turn.turnangle = M_PI;
-    top_turn.length = 147.836;
+    ifstream raw_data("sonoma.csv"); //reading in all the coordinates
 
-    segment long_downhill;
-    long_downhill.length = 580.762;
-    long_downhill.inclination = -0.00998 * M_PI / 180.0;
+    while(true)
+    {
+        string s;
+        raw_data >> s;
+        if(s=="") break;
+        string delimiter = ",";
+        vector<double> temp;
+        size_t pos = 0;
+        string token;
+        while ((pos = s.find(delimiter)) != std::string::npos) {
+            token = s.substr(0, pos);
+            temp.push_back(stod(token));
+            s.erase(0, pos + delimiter.length());
+        }
+        temp.push_back(stod(s));
 
-    segment bot_turn;
-    bot_turn.turnangle = M_PI;
-    bot_turn.length = 90.785;
+        m_coordinates.push_back(temp);
+        
+        if(raw_data.eof()) break;
+    }
 
-    segment first_uphill;
-    first_uphill.length = 291.049;
-    first_uphill.inclination = 0;
-
-    segment second_uphill;
-    second_uphill.length = 306.149;
-    second_uphill.inclination = 0.0165 * M_PI / 180.0;
-
-    add_segment(&top_turn);
-    add_segment(&long_downhill);
-    add_segment(&bot_turn);
-    add_segment(&first_uphill);
-    add_segment(&second_uphill);
+    for (int i=0; i < m_coordinates.size()-1; i++) //calculating total length
+    {
+        double d = distance_between_coordinates(&m_coordinates[i], &m_coordinates[i+1]);
+        m_total_length += d;
+    }
+    
 }
 
   //accessor methods
@@ -47,75 +51,57 @@ double track::get_c_dynamic_friction() {return m_c_dynamic_friction;}
 double track::get_fluid_density() {return m_fluid_density;}
 double track::get_total_length() {return m_total_length;}
 
-segment* track::get_segment(int i)
-{
-    if (i >= 0 && i < m_segments.size())
-        return &(m_segments[i]);
-    
-    return nullptr;
-}
-
-int track::get_numsegs() {return m_num_segs;}
-
   //mutator methods - note: adjust angles and density for gravity, etc.
 
 void track::set_c_static_friction(double csf) {m_c_static_friction = csf;}
 void track::set_c_dynamic_friction(double cdf) {m_c_dynamic_friction = cdf;}
 void track::set_fluid_density(double fd) {m_fluid_density = fd;}
 
-void track::add_segment(segment* seg)
-{
-    m_segments.push_back(*seg);
-    m_total_length+=seg->length;
-    m_num_segs++;
-}
-
-double track::time_to_run_one_segment(car* Car, segment* Segment)
-{
-  if (Segment->turnangle==0) // if the segment is a straight road/ramp
-  {
-    double incline_angle = Segment->inclination;
-    double s = Segment->length;
-    double u = Car->get_velocity();
-    Car->set_orientation(incline_angle);
-    double old_nf = Car->get_net_force_x();
-    Car->set_engine_force(-1.0*old_nf); //set engine force to stay at 15mph??
-    double net_force_x = Car->get_net_force_x();
-    double a = net_force_x / Car->get_mass();
-    double v = v_uas(u, a, s);
-    double t = t_usa(u, s, a);
-    Car->travel(s);
-    Car->set_velocity(v);
-    Car->climb(s*sin(incline_angle));
-    cout << t << endl;
-    Car->set_engine_force(0);
-    return t;
-  } else { // if the segment is a turn
-    double v = Car->get_velocity();
-    double s = Segment->length;
-    double t = s/v;
-    cout << t << endl;
-    return t;
-  }
-}
-
 double track::time_to_run(car* Car)
 {
     double time = 0.0;
-    for (int i=0; i<m_num_segs; i++)
+    for (int i=0; i < m_coordinates.size()-1; i++) //calculating total length
     {
-        time += time_to_run_one_segment(Car, get_segment(i));
+        double s = distance_between_coordinates(&m_coordinates[i], &m_coordinates[i+1]);
+        double incline_angle = angle_between_coordinates(&m_coordinates[i], &m_coordinates[i+1]);
+        double u = Car->get_velocity();
+        Car->set_orientation(incline_angle);
+        double old_nf = Car->get_net_force_x();
+        Car->set_engine_force(-1.0*old_nf); //set engine force to stay at 15mph
+        double net_force_x = Car->get_net_force_x();
+        double a = net_force_x / Car->get_mass();
+        double v = v_uas(u, a, s);
+        double t = t_usa(u, s, a);
+        Car->travel(s);
+        Car->set_velocity(v);
+        Car->climb(s*sin(incline_angle));
+        Car->set_engine_force(0);
+        time += t;
     }
     return time;
 }
 
-void track::reset_segments()
+double track::distance_between_coordinates(vector<double>* c1, vector<double>* c2)
 {
-    for (int i=0; i<m_num_segs; i++)
-    {
-        m_segments.pop_back();
-    }
-    m_num_segs = 0;
+    double x1 = (*c1)[0];
+    double y1 = (*c1)[1];
+    double z1 = (*c1)[2];
+
+    double x2 = (*c2)[0];
+    double y2 = (*c2)[1];
+    double z2 = (*c2)[2];
+
+    double dist = sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y2) + (z2-z1)*(z2-z1));
+    return dist;
 }
+
+double track::angle_between_coordinates(vector<double>* c1, vector<double>* c2)
+{
+    double delta_z = (*c1)[2] - (*c2)[2];
+    double dist = distance_between_coordinates(c1, c2);
+    double angle = (-1.0)*asin(delta_z/dist); //keeping sign conventions from earlier
+    return angle;
+}
+
 
 
