@@ -5,28 +5,52 @@
 
 using namespace std;
 
+void check_input()
+{
+    if(!cin)
+    {
+        cout << "Invalid Input" << endl;
+        exit(1);
+    }
+}
+
 int main()
 {
     track* t = new track; //put this all into a default constructor
     car* c = new car(t);
-    c->set_mass(33.11); //73 pound estimate weight
-    c->set_velocity(6.7); //15 mph
-    vector<double> c1;
-    vector<double> c2;
-    /*c1.push_back(-228);
-    c1.push_back(170);
-    c1.push_back(4);
-    c2.push_back(183);
-    c2.push_back(-132);
-    c2.push_back(-1);
 
-    cout << t->angle_between_coordinates(&c2, &c1) << endl;
-    cout << t->distance_between_coordinates(&c2, &c1) << endl;*/
+    cout.setf(ios::fixed);
+    cout.precision(2);
+
+    cout << "Choose a car:" << endl << "Press 1 for 2019 Car" << endl << "Press 0 for car information" << endl; //include other options later
+    int car_choice;
+    cin >> car_choice;
+    check_input();
+    while(car_choice==0){
+        cout << "2019 Car:" << endl;
+        cout << "Weight: 73 pounds" << endl << endl;
+        //add other specs when we get them, like crr, drag coeff, wheel radius perhaps
+        cout << "Choose a car:" << endl << "Press 1 for 2019 Car" << endl << "Press 0 for car information" << endl;
+        cin >> car_choice;
+        check_input();
+    }
+    if(car_choice==1){
+        c->set_mass(33.11);
+    }else{
+        cout << "Invalid choice" << endl;
+        exit(1);
+    }
+    cout << "Enter speed in miles per hour (15 mph suggested)" << endl;
+    double speed_choice;
+    cin >> speed_choice;
+    check_input();
+    speed_choice = speed_choice/2.237; //convert to m/s
+    c->set_velocity(speed_choice);
     double time = t->time_to_run(c);
     double ms = t->get_total_length()/time;
-    cout << "time: " << time << " s"<< endl;
+    cout << endl << endl << "time: " << time << " s"<< endl;
     cout << "average velocity: " << ms << " m/s" << endl;
-    cout << "distance: " << t->get_total_length() << endl;
+    cout << "distance traveled: " << t->get_total_length() << " m" << endl;
     delete c;
     delete t;
 }
