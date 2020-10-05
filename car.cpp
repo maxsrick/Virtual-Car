@@ -3,6 +3,7 @@
 #include <math.h>
 using namespace std;
 
+
 car::car(track* Track): m_track(Track)
 {
     m_mass = 500; // kg
@@ -11,7 +12,7 @@ car::car(track* Track): m_track(Track)
     m_v = 0; // m/s
     m_a = 0; // m/s^2
     m_altitude = 0; // m above starting point
-    set_orientation(0); //this should be zero right?
+    set_orientation(0); // radians
     m_throttle = 0; // m/s^2?
     m_engine_force = 0; // N
     m_net_force_x = 0; // N
