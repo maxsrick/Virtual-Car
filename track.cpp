@@ -64,6 +64,7 @@ double track::time_to_run(car* Car)
     {
         double s = distance_between_coordinates(&m_coordinates[i], &m_coordinates[i+1]);
         double incline_angle = angle_between_coordinates(&m_coordinates[i], &m_coordinates[i+1]);
+        Car->set_orientation(incline_angle);
         double u = Car->get_velocity();
         double old_nf = Car->get_net_force_x();
         Car->set_engine_force(-1.0*old_nf); //set engine force to stay at 15mph??
@@ -98,7 +99,7 @@ double track::angle_between_coordinates(vector<double>* c1, vector<double>* c2)
 {
     double delta_z = (*c1)[2] - (*c2)[2];
     double dist = distance_between_coordinates(c1, c2);
-    double angle = asin(delta_z/dist);
+    double angle = (-1.0)*asin(delta_z/dist); //retaining sign conventions
     return angle;
 }
 
