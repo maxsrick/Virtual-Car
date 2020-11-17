@@ -1,15 +1,8 @@
 #ifndef TRACK_H
 #define TRACK_H
 #include <vector>
-
+using namespace std;
 class car;
-
-struct segment
-{
-  double inclination=0; // radians
-  double length=0;      // meters
-  double turnangle=0;   // radians
-};
 
 class track
 {
@@ -27,21 +20,17 @@ class track
     void set_c_static_friction(double csf);
     void set_c_dynamic_friction(double cdf);
     void set_fluid_density(double fd);
-    void add_segment(segment* seg);
-    segment* get_segment(int i);
-    int get_numsegs();
 
-    double time_to_run_one_segment(car* Car, segment* Segment);
     double time_to_run(car* Car);
-    void reset_segments();
+    double distance_between_coordinates(vector<double>* c1, vector<double>* c2);
+    double angle_between_coordinates(vector<double>* c1, vector<double>* c2);
 
   private:
     double m_c_static_friction; // co-efficient of static friction
     double m_c_dynamic_friction; // co-efficient of dynamic friction
     double m_fluid_density; // only used for air in our case
     double m_total_length;
-    std::vector<segment> m_segments;
-    int m_num_segs;
+    vector<vector<double> > m_coordinates;
 };
 
 #endif

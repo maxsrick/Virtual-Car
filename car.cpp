@@ -3,7 +3,6 @@
 #include <math.h>
 using namespace std;
 
-
 car::car(track* Track): m_track(Track)
 {
     m_mass = 500; // kg
