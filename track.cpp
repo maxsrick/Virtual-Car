@@ -104,4 +104,3 @@ double track::angle_between_coordinates(vector<double>* c1, vector<double>* c2)
 }
 
 
-
