@@ -60,22 +60,22 @@ void track::set_fluid_density(double fd) {m_fluid_density = fd;}
 double track::time_to_run(car* Car)
 {
     double time = 0.0;
-    for (int i=0; i < m_coordinates.size()-1; i++) //calculating total length
+    for (int i=0; i < m_coordinates.size()-1; i++) //go over each coordinate
     {
         double s = distance_between_coordinates(&m_coordinates[i], &m_coordinates[i+1]);
         double incline_angle = angle_between_coordinates(&m_coordinates[i], &m_coordinates[i+1]);
         Car->set_orientation(incline_angle);
         double u = Car->get_velocity();
-        double old_nf = Car->get_net_force_x();
-        Car->set_engine_force(-1.0*old_nf); //set engine force to stay at 15mph??
-        double net_force_x = Car->get_net_force_x();
-        double a = net_force_x / Car->get_mass();
-        double v = v_uas(u, a, s);
+        double old_nf = Car->get_net_force_x(); //get net force acting on car at current coordinate
+        Car->set_engine_force(-1.0*old_nf); //set engine force to stay constant velocity
+        double net_force_x = Car->get_net_force_x(); //will always be zero in this case
+        double a = net_force_x / Car->get_mass(); 
+        double v = v_uas(u, a, s); 
         double t = t_usa(u, s, a);
-        Car->travel(s);
+        Car->travel(s); //set car's new distance traveled, velocity, altitude
         Car->set_velocity(v);
         Car->climb(s*sin(incline_angle));
-        Car->set_engine_force(0);
+        Car->set_engine_force(0); //reset engine force 
         time += t;
     }
     return time;
