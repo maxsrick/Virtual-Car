@@ -56,20 +56,18 @@ int main()
         exit(1);
     }
     
-    
-//    c->set_velocity(speed_choice);
-    double time = 0; 
-    for(int i=0;i<lap_choice;i++)
-        time += t->time_to_run(c, speed_choice);
-
+    double time = 0.0;
     double l = 0.0;
-    for(int j=0;j<lap_choice;j++)
+    double v = 0.0;
+    for(int i=0;i<lap_choice;i++) {
+        time += t->time_to_run(c, speed_choice);
         l += t->get_total_length();
-    double ms = l/time;
+        v = l/time;
+    }
     
     
     cout << endl << endl << "time: " << time << " s"<< endl;
-    cout << "average velocity: " << ms << " m/s" << endl;
+    cout << "average velocity: " << v*2.237 << " mph" << endl;
     cout << "distance traveled: " << l << " m" << endl;
     delete c;
     delete t;

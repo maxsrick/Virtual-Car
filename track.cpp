@@ -76,11 +76,10 @@ double track::time_to_run(car* Car, double v_target)
 //        } else if (u >= 0.45) {
 //            Car->set_engine_force(650/u); // ma = P/v
         } else {
-            Car->set_engine_force(650); // arbitrary F_max
+            Car->set_engine_force(250); // arbitrary F_max
         }
         
         double net_force_x = Car->get_net_force_x();
-
         double a = net_force_x / Car->get_mass();
         double v = v_uas(u, a, s);
         double t = t_usa(u, s, a);
@@ -89,6 +88,10 @@ double track::time_to_run(car* Car, double v_target)
         Car->set_velocity(v);
         Car->climb(s*sin(incline_angle));
         time += t;
+        
+//        cout << "time: " << t << " s"<< endl;
+//        cout << "average velocity: " << v*2.237 << " mph" << endl;
+//        cout << "distance traveled: " << s << " m" << endl;
     }
     return time;
 }
