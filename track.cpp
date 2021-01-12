@@ -60,7 +60,7 @@ void track::set_fluid_density(double fd) {m_fluid_density = fd;}
 double track::time_to_run(car* Car, double v_target)
 {
     double time = 0.0;
-    for (int i=0; i < m_coordinates.size()-1; i++) //calculating total length
+    for (int i=0; i < m_coordinates.size()-1; i++) //go over each coordinate
     {
         double s = distance_between_coordinates(&m_coordinates[i], &m_coordinates[i+1]);
         double incline_angle = angle_between_coordinates(&m_coordinates[i], &m_coordinates[i+1]);

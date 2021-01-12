@@ -16,7 +16,7 @@ void check_input()
 
 int main()
 {
-    track* t = new track; //put this all into a default constructor
+    track* t = new track; 
     car* c = new car(t);
 
     cout.setf(ios::fixed);
