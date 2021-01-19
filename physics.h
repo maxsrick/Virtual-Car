@@ -6,8 +6,6 @@
 //  Copyright © 2020 Anay. All rights reserved.
 //
 
-//add error message for division by 0
-
 #ifndef physics_h
 #define physics_h
 
@@ -19,17 +17,30 @@ using namespace std;
 
 // v = sqrt(u^2 + 2as)
 double v_uas(double u, double a, double s) {
-    return sqrt(u*u + 2*a*s);
+   
+   double v = sqrt(u*u + 2*a*s);
+
+   // checking if we have imaginary roots
+   if(isnan(v)) {
+   		v = sqrt(-1 * (u*u + 2*a*s));
+   }
+   return v;
 }
 
 // u = sqrt(v^2 - 2as)
 double u_vas(double v, double a, double s) {
-    return sqrt(v*v - 2*a*s);
+    double u = sqrt(v*v - 2*a*s);
+
+   // checking if we have imaginary roots
+   if(isnan(u)) {
+   		u = sqrt(-1 * (v*v - 2*a*s));
+   }
+   return u;
 }
 
 // (v^2 - u^2)/2s
 double a_vus(double v, double u, double s) {
-    if (s==0)
+    if (s == 0)
     {
         cout << "Divide by zero with physics.h equation a_vus" << endl;
         exit(0);
@@ -39,7 +50,7 @@ double a_vus(double v, double u, double s) {
 
 // (v^2 - u^2)/2a
 double s_vua(double v, double u, double a) {
-    if (a==0)
+    if (a == 0)
     {
         cout << "Divide by zero with physics.h equation s_vua" << endl;
         exit(0);
@@ -63,7 +74,7 @@ double u_vat(double v, double a, double t) {
 
 // a = (v - u)/t
 double a_vut(double v, double u, double t) {
-    if (t==0)
+    if (t == 0)
     {
         cout << "Divide by zero with physics.h equation a_vut" << endl;
         exit(0);
@@ -73,7 +84,7 @@ double a_vut(double v, double u, double t) {
 
 // t = (v - u)/a
 double t_vua(double v, double u, double a) {
-    if (a==0)
+    if (a == 0)
     {
         cout << "Divide by zero with physics.h equation t_vua" << endl;
         exit(0);
@@ -97,7 +108,7 @@ double u_sat(double s, double a, double t) {
 
 // a = 2s/(t^2) - 2u/t
 double a_ust(double u, double s, double t) {
-    if (t==0)
+    if (t == 0)
     {
         cout << "Divide by zero with physics.h equation a_ust" << endl;
         exit(0);
@@ -107,20 +118,24 @@ double a_ust(double u, double s, double t) {
 
 // t = (-u ± sqrt(u^2 + 2as))/a
 double t_usa(double u, double s, double a) { 
-    if (a==0)
-    {
-        double t = s/u;
-        if (t >= 0)
-            return t;
-        else
-            return -t;
+    if (a == 0) {
+    	if (u == 0) {
+    		cout << "Divide by zero with physics.h equation t_usa" << endl;
+        	exit(0);
+    	}
+        return abs(s/u);
     }
-    double t = (-u + sqrt(u*u + 2*a*s))/a;
+
+    double v = v_uas(u, a, s); // v = sqrt(u^2 + 2as)
+
+    double t1 = (-u + v)/a;
+    double t2 = (-u - v)/a;
+
     // We are only concerned with the positive value of time
-    if (t >= 0)
-        return t;
+    if (t1 >= 0)
+        return t1;
     else
-        return -t;
+        return t2;
 }
 
 #endif /* physics_h */

@@ -10,7 +10,6 @@ class car
     car(track* Track);
 
       //auxillary functions
-    double frictional_force();
     void update_net_force();
 
       //accessor methods
@@ -23,6 +22,7 @@ class car
     double get_orientation();
     double get_throttle();
     double get_engine_force();
+    double get_frictional_force();
     double get_gravitational_force_x();
     double get_gravitational_force_y();
     double get_normal_force();

@@ -5,7 +5,7 @@ using namespace std;
 
 car::car(track* Track): m_track(Track)
 {
-    m_mass = 500; // kg
+    m_mass = 0; // kg
     m_gravity = -9.81; //m/s^2
     m_s = 0; // m
     m_v = 0; // m/s
@@ -24,19 +24,9 @@ car::car(track* Track): m_track(Track)
 }
 
 //auxillary functions
-double car::frictional_force() // sign conventions are absolutely fucked, we need to create documentation to describe what sign convention we plan on using (which we probably should have decided earlier)
-{
-    if (m_v==0)
-        return (-1.0 * m_track->get_c_static_friction())*m_normal_force; // opposes other forces
-    else if (m_v > 0)
-        return (-1.0 * m_track->get_c_dynamic_friction())*m_normal_force;
-    else
-        return m_track->get_c_dynamic_friction()*m_normal_force;
-}
-
 void car::update_net_force()
 {
-    m_net_force_x = frictional_force() + m_drag_force + m_gravitational_force_x + m_engine_force;
+    m_net_force_x = get_frictional_force() + m_drag_force + m_gravitational_force_x + m_engine_force;
     m_net_force_y = m_gravitational_force_y + m_normal_force;
 }
 
@@ -52,8 +42,25 @@ double car::get_engine_force() {return m_engine_force;}
 double car::get_gravitational_force_x() {return m_gravitational_force_x;}
 double car::get_gravitational_force_y() {return m_gravitational_force_y;}
 double car::get_normal_force() {return m_normal_force;}
-double car::get_net_force_x() {return m_net_force_x;}
-double car::get_net_force_y() {return m_net_force_y;}
+
+double car::get_frictional_force()
+{
+    if (m_v==0)
+        return (-1.0 * m_track->get_c_static_friction())*m_normal_force; // opposes other forces
+    else if (m_v > 0)
+        return (-1.0 * m_track->get_c_dynamic_friction())*m_normal_force;
+    else
+        return m_track->get_c_dynamic_friction()*m_normal_force;
+}
+double car::get_net_force_x() {
+    update_net_force();
+    return m_net_force_x;
+}
+double car::get_net_force_y() {
+    update_net_force();
+    return m_net_force_y;
+}
+
 double car::get_power() {return m_power;}
 double car::get_c_rolling_resistance() {return m_c_rolling_resistance;}
 double car::get_c_drag() {return m_c_drag;}
