@@ -1,6 +1,8 @@
 #ifndef MOTOR_H
 #define MOTOR_H
 
+#include <string>
+
 #include "track.h"
 
 // Motor Data for 60LH351A
@@ -9,8 +11,8 @@ const double VOLTAGE = 24;
 const double NO_LOAD_SPEED = 4200; 
 const double SPEED_TO_TORQUE_RATIO = 6.3; 
 const double MAX_EFFIENCY = 92; 
-const double SPEED_AT_RATED_POWER = 2697/3289;
-const double RATED_CURRENT = 31/19;
+const double SPEED_AT_RATED_POWER = 3289;
+const double RATED_CURRENT = 19;
 const double MOTOR_CONSTANT = 17.9;
 const double WINDING_RESISTANCE = 0.186;
 const double NO_LOAD_CURRENT = 0.24;
@@ -19,6 +21,8 @@ const double STATIC_FRICTION = 1;
 const double VELOCITY_CONSTANT = 175;
 const double TORQUE_CONSTANT = 7.71;
 const double ROTOR_INERTIA = 11.8;
+
+class Ramping;
 
 class motor
 {
@@ -39,10 +43,17 @@ class motor
     void set_wheel_sprocket(double t);
     void set_torque(double ef);
     void set_force(double p);
+
+    //Helper Methods
+    unsigned long get_time();
+    double get_voltage();
     
   private:
       // Related objects
     track* m_track;
+    Ramping* m_ramp;
+
+    string rampingType;
 
       // Given constants
     double m_winding;
