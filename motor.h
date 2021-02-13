@@ -28,7 +28,7 @@ class motor
 {
   public:
       //constructor
-    motor(track* car);
+    motor(track* Track);
 
       //accessor methods
     double get_motor_sprocket();
@@ -46,7 +46,7 @@ class motor
 
     //Helper Methods
     unsigned long get_time();
-    double get_voltage();
+    double get_voltage(int throttle);
     
   private:
       // Related objects

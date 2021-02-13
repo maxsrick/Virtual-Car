@@ -6,6 +6,7 @@
 #include "./throttle/rampingCopy.h"
 
 #include <string>
+#include <iostream>
 
 #include <chrono>
 #include <sys/time.h>
@@ -24,7 +25,7 @@ motor::motor(track* Track) // Need to add parameter to choose rampingType
     rampingType = "Linear";
     if (rampingType == "Linear")
     {
-        m_ramp = new Linear;
+        m_ramp = nullptr;
     }
     // TODO: possibly set calculated motor specs here by calling functions
 }
@@ -40,7 +41,7 @@ unsigned long motor::get_time()
 
 double motor::get_voltage(int throttle) //throttle will be taken from UI (IDK how that will be implemented)
 {
-    int speed = m_ramp->newSpd(throttle, getTime());
+    int speed = m_ramp->newSpd(throttle, get_time());
     double voltage = (speed * 24)/255 ; //converts speed into a percentage of battery
     return voltage;
 }
@@ -51,32 +52,13 @@ double motor::get_gear_ratio() {return m_gear_ratio;}
 double motor::get_wheel_sprocket() {return m_wheel_sprocket;}
 double motor::get_torque() {return m_torque;}
 double motor::get_force() {return m_force;}
-    
-  //mutator methods
-void motor::set_motor_sprocket(double m)
-{
-    // TODO: implement
-}
 
-void motor::set_gear_ratio(double o)
-{
-    // TODO: implement
-}
-
-void motor::set_wheel_sprocket(double t)
-{
-    // TODO: implement
-}
-
-void motor::set_torque(double ef)
-{
-    // TODO: implement
-}
-
-void motor::set_force(double p)
-{
-    // TODO: implement
-}
 
 int main()
-{}
+{
+    // track* Track = nullptr;
+    // motor vroom = new motor(Track);
+
+    cout << map(7, 3, 13, 0, 10) << endl;
+
+}
