@@ -1,31 +1,27 @@
 #include <math.h>
-
-#include "motor.h"
-#include "track.h"
-
-#include "./throttle/rampingCopy.h"
-
 #include <string>
 #include <iostream>
-
 #include <chrono>
 #include <sys/time.h>
 #include <ctime>
 
+#include "motor.h"
+#include "track.h"
+#include "./throttle/rampingCopy.h"
+
 using namespace std;
 
 motor::motor(track* Track) // Need to add parameter to choose rampingType
-: m_track(Track), m_winding(WINDING), m_voltage(VOLTAGE), m_no_load_speed(NO_LOAD_SPEED), m_speed_to_torque_slope(SPEED_TO_TORQUE_RATIO),
-  m_max_efficiency(MAX_EFFIENCY), m_speed_at_rated_power(SPEED_AT_RATED_POWER), m_rated_current(RATED_CURRENT), 
-  m_motor_constant(MOTOR_CONSTANT), m_winding_resistance(WINDING_RESISTANCE), m_no_load_current(NO_LOAD_CURRENT),
-  m_damping_factor(DAMPING_FACTOR), m_static_friction(STATIC_FRICTION), m_velocity_constant(VELOCITY_CONSTANT),
-  m_torque_constant(TORQUE_CONSTANT), m_rotor_inertia(ROTOR_INERTIA)
+: m_track(Track)
 {
     // TODO: Add in a way to choose which type of ramping function the user wants 
     rampingType = "Linear";
     if (rampingType == "Linear")
     {
         m_ramp = nullptr;
+        m_rpm = 0;
+        m_torque = 0;
+        m_force = 0;
     }
     // TODO: possibly set calculated motor specs here by calling functions
 }
@@ -46,13 +42,43 @@ double motor::get_voltage(int throttle) //throttle will be taken from UI (IDK ho
     return voltage;
 }
 
-  //accessor methods
-double motor::get_motor_sprocket() {return m_motor_sprocket;}
-double motor::get_gear_ratio() {return m_gear_ratio;}
-double motor::get_wheel_sprocket() {return m_wheel_sprocket;}
-double motor::get_torque() {return m_torque;}
-double motor::get_force() {return m_force;}
+// Automatically updates m_rpm
+double motor::rungeKuttaRPM(double timeStart, double timeEnd, double step, double voltage)
+{
+    // Find number of iterations
+    int numIter = (timeEnd - timeStart)/step;
+    double angularVelocity = m_rpm*0.10472;
 
+    for (int i = 0; i < numIter; i++)
+    {
+        // Update values
+        double deltaV = voltage - angularVelocity/(WINDING);
+        double current = deltaV/sqrt(pow(WINDING_RESISTANCE,2) + pow(angularVelocity*INDUCTANCE, 2));
+        double m_torque = TORQUE_CONSTANT*current*GEAR_RATIO;
+        double acceleration = m_torque/MOMENT_INERTIA;
+
+        // Calculate c1, c2, c3, c4
+        double c1 = step*acceleration*1;
+        double c2 = step*acceleration*(1+c1/2);
+        double c3 = step*acceleration*(1+c2/2);
+        double c4 = step*acceleration*(1+c3);
+            
+        // Calculate instanteous rpm 
+        angularVelocity += c1/6 + c2/3 + c3/3 + c4/6;
+    }
+
+    // Set rpm for next iteration
+    m_rpm = angularVelocity/0.10472;
+
+    return m_rpm;
+}
+
+double motor::get_force() 
+{
+    // Compute and return motor output force
+    m_force = m_torque/m_gear_ratio;
+    return m_force;
+}
 
 int main()
 {
@@ -60,5 +86,4 @@ int main()
     // motor vroom = new motor(Track);
 
     cout << map(7, 3, 13, 0, 10) << endl;
-
 }
