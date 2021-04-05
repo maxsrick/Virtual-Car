@@ -24,7 +24,7 @@ const double ROTOR_INERTIA = 11.8;
 const double INDUCTANCE = 0.00016;
 const double GEAR_RATIO = 9;
 const double MOMENT_INERTIA = 35*pow(0.1, 2); // TODO: check numeric values
-
+const double RADIUS = 10; // Need to calculate or find out for torque -> force calculation
 class Ramping;
 
 class motor

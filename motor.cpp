@@ -76,7 +76,7 @@ double motor::rungeKuttaRPM(double timeStart, double timeEnd, double step, doubl
 double motor::get_force() 
 {
     // Compute and return motor output force
-    m_force = m_torque/m_gear_ratio;
+    m_force = m_torque/RADIUS;
     return m_force;
 }
 
