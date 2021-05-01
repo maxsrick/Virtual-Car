@@ -1,12 +1,13 @@
 #include "car.h"
 #include "track.h"
+#include "physics.h"
 #include <math.h>
+
 using namespace std;
 
 car::car(track* Track): m_track(Track)
 {
     m_mass = 500; // kg
-    m_gravity = -9.81; //m/s^2
     m_s = 0; // m
     m_v = 0; // m/s
     m_a = 0; // m/s^2
@@ -71,8 +72,8 @@ void car::climb(double d) {m_altitude += d;}
 void car::set_orientation(double o)
 {
     m_orientation = o;
-    m_gravitational_force_x = m_mass * m_gravity * sin(m_orientation);
-    m_gravitational_force_y = m_mass * m_gravity * cos(m_orientation);
+    m_gravitational_force_x = m_mass * GRAVITY * sin(m_orientation);
+    m_gravitational_force_y = m_mass * GRAVITY * cos(m_orientation);
     m_normal_force = (-1.0) * m_gravitational_force_y;
     update_net_force();
 }

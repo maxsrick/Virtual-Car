@@ -50,7 +50,6 @@ class car
     
   private:
     double m_mass;
-    double m_gravity;
     
     double m_s; //displacement
     double m_v; //velocity

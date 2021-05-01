@@ -15,6 +15,9 @@
 #include <iostream>
 using namespace std;
 
+// Constants
+const double GRAVITY = -9.81; //m/s^2
+
 // MARK: v^2 = u^2 + 2as
 
 // v = sqrt(u^2 + 2as)
