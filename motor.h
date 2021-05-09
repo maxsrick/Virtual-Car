@@ -38,6 +38,7 @@ class motor
     double get_voltage(int throttle);
     double rungeKuttaRPM(double timeStart, double timeEnd, double step, double voltage);
     double get_force(); 
+    double hold15MPH(double speed);
 
   private:
     // Related objects

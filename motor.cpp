@@ -80,6 +80,18 @@ double motor::get_force()
     return m_force;
 }
 
+// TODO: get checked by Jacob and Anay
+double motor::hold15MPH(double speed)
+{
+    if (speed < 14.7)
+    {
+        unsigned long curTime = get_time();
+        rungeKuttaRPM(curTime - 50, curTime + 50, 1, get_voltage(100));
+    }
+
+    return get_force();
+}
+
 int main()
 {
     // track* Track = nullptr;
