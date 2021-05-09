@@ -2,6 +2,8 @@
 
 motor.cpp
 - Used to simulate motor ramping, throttle, rpm, and force
+- motor class acts as a member variable of the car
+- Contains currently used data metrics of phsyical motor
 
 ## motor::get_time()
 
@@ -21,4 +23,10 @@ motor.cpp
 ## motor::get_force()
 
 - Uses most recent torque calculation to provide current motor force
+
+## motor::hold15MPH()
+
+- Calls member functions to maintain 15 MPH speed
+- Returns new motor output force
+
 
