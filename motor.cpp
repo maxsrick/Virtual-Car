@@ -92,6 +92,7 @@ double motor::hold15MPH(double speed)
     return get_force();
 }
 
+/*
 int main()
 {
     // track* Track = nullptr;
@@ -99,3 +100,4 @@ int main()
 
     cout << map(7, 3, 13, 0, 10) << endl;
 }
+*/

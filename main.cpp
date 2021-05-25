@@ -1,5 +1,6 @@
 #include "car.h"
 #include "track.h"
+#include "motor.h"
 #include <iostream>
 #include <math.h>
 
@@ -16,8 +17,9 @@ void check_input()
 
 int main()
 {
-    track* t = new track; 
-    car* c = new car(t);
+    track* t = new track;
+    motor* m = new motor(t); // not sure why motor needs track, ask Satva
+    car* c = new car(t, m);
 
     cout.setf(ios::fixed);
     cout.precision(2);
