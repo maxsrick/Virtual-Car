@@ -18,7 +18,7 @@ void check_input()
 int main()
 {
     track* t = new track;
-    motor* m = new motor(t); // not sure why motor needs track, ask Satva
+    motor* m = new motor();
     car* c = new car(t, m);
 
     cout.setf(ios::fixed);
