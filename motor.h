@@ -3,6 +3,8 @@
 
 #include <string>
 
+using namespace::std;
+
 // Motor Data for 60LH351A
 const double WINDING = 175*0.10472;
 const double VOLTAGE = 24;
