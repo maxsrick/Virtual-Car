@@ -3,8 +3,6 @@
 
 #include <string>
 
-#include "track.h"
-
 // Motor Data for 60LH351A
 const double WINDING = 175*0.10472;
 const double VOLTAGE = 24;
@@ -31,7 +29,7 @@ class motor
 {
   public:
     // Constructor
-    motor(track* Track);
+    motor();
 
     // Simulation functions
     unsigned long get_time();
@@ -42,7 +40,6 @@ class motor
 
   private:
     // Related objects
-    track* m_track;
     Ramping* m_ramp;
 
     string rampingType;
