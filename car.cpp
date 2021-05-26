@@ -1,11 +1,12 @@
 #include "car.h"
 #include "track.h"
-#include "physics.h"
+#include "motor.h"
 #include <math.h>
-
 using namespace std;
 
-car::car(track* Track): m_track(Track)
+const double GRAVITY = 9.81;
+
+car::car(track* Track, motor* Motor): m_track(Track), m_motor(Motor)
 {
     m_mass = 500; // kg
     m_s = 0; // m
@@ -37,7 +38,7 @@ double car::frictional_force() // sign conventions are absolutely fucked, we nee
 
 void car::update_net_force()
 {
-    m_net_force_x = frictional_force() + m_drag_force + m_gravitational_force_x + m_engine_force;
+    m_net_force_x = frictional_force() + m_drag_force + m_gravitational_force_x + get_engine_force();
     m_net_force_y = m_gravitational_force_y + m_normal_force;
 }
 
@@ -49,7 +50,7 @@ double car::get_acceleration() {return m_a;}
 double car::get_altitude() {return m_altitude;}
 double car::get_orientation() {return m_orientation;}
 double car::get_throttle() {return m_throttle;}
-double car::get_engine_force() {return m_engine_force;}
+double car::get_engine_force() {m_engine_force = m_motor->get_force(); return m_engine_force;}
 double car::get_gravitational_force_x() {return m_gravitational_force_x;}
 double car::get_gravitational_force_y() {return m_gravitational_force_y;}
 double car::get_normal_force() {return m_normal_force;}
@@ -78,6 +79,7 @@ void car::set_orientation(double o)
     update_net_force();
 }
 void car::set_throttle(double t) {m_throttle = t;}
+// TODO: remove this function, corresponding calls in track.cpp
 void car::set_engine_force(double ef)
 {
     m_engine_force = ef;

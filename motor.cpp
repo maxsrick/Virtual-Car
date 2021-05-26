@@ -6,13 +6,11 @@
 #include <ctime>
 
 #include "motor.h"
-#include "track.h"
 #include "./throttle/rampingCopy.h"
 
 using namespace std;
 
-motor::motor(track* Track) // Need to add parameter to choose rampingType
-: m_track(Track)
+motor::motor() // Need to add parameter to choose rampingType
 {
     // TODO: Add in a way to choose which type of ramping function the user wants 
     rampingType = "Linear";
@@ -92,10 +90,11 @@ double motor::hold15MPH(double speed)
     return get_force();
 }
 
+/*
 int main()
 {
-    // track* Track = nullptr;
-    // motor vroom = new motor(Track);
+    // motor vroom = new motor();
 
     cout << map(7, 3, 13, 0, 10) << endl;
 }
+*/

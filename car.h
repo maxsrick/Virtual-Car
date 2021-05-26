@@ -2,12 +2,13 @@
 #define CAR_H
 
 #include "track.h"
+#include "motor.h"
 
 class car
 {
   public:
       //constructor
-    car(track* Track);
+    car(track* Track, motor* Motor);
 
       //auxillary functions
     double frictional_force();
@@ -71,7 +72,9 @@ class car
     double m_c_rolling_resistance; //coefficient of rolling resistance
     double m_c_drag; // coefficient of drag
     double m_drag_area; //drag area
+
     track* m_track;
+    motor* m_motor;
 };
 
 #endif

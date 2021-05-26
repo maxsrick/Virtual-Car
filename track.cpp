@@ -67,6 +67,7 @@ double track::time_to_run(car* Car)
         Car->set_orientation(incline_angle);
         double u = Car->get_velocity();
         double old_nf = Car->get_net_force_x(); //get net force acting on car at current coordinate
+        // TODO: remove this function, change method of running
         Car->set_engine_force(-1.0*old_nf); //set engine force to stay constant velocity
         double net_force_x = Car->get_net_force_x(); //will always be zero in this case
         double a = net_force_x / Car->get_mass(); 
@@ -75,6 +76,7 @@ double track::time_to_run(car* Car)
         Car->travel(s); //set car's new distance traveled, velocity, altitude
         Car->set_velocity(v);
         Car->climb(s*sin(incline_angle));
+        // TODO: remove this
         Car->set_engine_force(0); //reset engine force 
         time += t;
     }

@@ -2,8 +2,7 @@
 #define MOTOR_H
 
 #include <string>
-
-#include "track.h"
+using namespace std;
 
 // Motor Data for 60LH351A
 const double WINDING = 175*0.10472;
@@ -31,7 +30,7 @@ class motor
 {
   public:
     // Constructor
-    motor(track* Track);
+    motor();
 
     // Simulation functions
     unsigned long get_time();
@@ -42,7 +41,6 @@ class motor
 
   private:
     // Related objects
-    track* m_track;
     Ramping* m_ramp;
 
     string rampingType;
